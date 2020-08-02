@@ -5,10 +5,10 @@ require 'pry'
 class Scraper
    
   def scrape_city_urls
-      california_url="http://www.museumsusa.org/museums/?k=1271400%2cState%3aCA%3bDirectoryID%3a200454"
-      html=open(california_url)
+      san_francisco_url="http://www.museumsusa.org/museums/?k=1271404%2cCity%3aSan+Francisco%3bState%3aCA%3bDirectoryID%3a200454"
+      html=open(san_francisco_url)
       doc=Nokogiri::HTML(html)
-      cities=doc.css('#categoryid').css('.browseCategoryItem').css('a')
+      cities=doc.css('.browseCategory').css('.browseCategoryItem').css('a')
       city_urls=[]
 
       cities.each do |city|
@@ -18,29 +18,29 @@ class Scraper
       scrape_city_pages(city_urls)
   end
 
-   def scrape_city_pages(city_urls)
+    def scrape_city_pages(city_urls)
         
-        museums_list=[]
-        city_urls.each do |city_url|
-          url="http://www.museumsusa.org#{city_url}"
-          html=open(url)
-          doc=Nokogiri::HTML(html)
-          
-        museums_list << doc.css('div.itemGroup').css('.item').css('.basic')
-        end
-        binding.pry
-    end
+      museums_list=[]
+      city_urls.each do |city_url|
+      url="http://www.museumsusa.org#{city_url}"
+      html=open(url)
+      doc=Nokogiri::HTML(html)
+      
+      museums_list << doc.css('.itemGroup').css('div.basic:nth-child(2)')
+      end
+     create_museums(museums_list)
+    end                
 
-    # def create_museums(museums_list)
-    #     museums_list.each do |museum|
-    #      museums_list.css('div.basic:nth-child(2) > div:nth-child(1)').css('#ctl12_ctl00_rptContacts_org_0 > a:nth-child(1)').text
-    #      binding.pry
-          
-    #     end
-    # end
+    def create_museums(museums_list)
+        museums_list.each do |museum|
+          name=museum.css('div.basic:nth-child(2) > div:nth-child(1)').css('a:nth-child(1)').text
+          binding.pry
+       end
+    end
 
    
 end
-
+#doc.css('.itemGroup').css('div.basic:nth-child(2)').css('div.basic:nth-child(2) > div:nth-child(1)').css('a:nth-child(1)').text
+#to run type ruby ./lib/scraper.rb
 scrape=Scraper.new
 scrape.scrape_city_urls
