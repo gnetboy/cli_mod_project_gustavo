@@ -1,8 +1,3 @@
-require_relative "./lib/scraper.rb"
-require_relative "./lib/museums.rb"
-
-
-
 class CommandLineInterface
     
     attr_accessor :selection,:current_sel
@@ -16,10 +11,7 @@ class CommandLineInterface
         #keep_looping
     end
 
-    def make_students
-        students_array = Scraper.scrape_index_page(BASE_PATH + 'index.html')
-        Student.create_from_collection(students_array)
-      end
+    
     
       
     # def self.keep_looping
@@ -41,10 +33,10 @@ class CommandLineInterface
     #     end
     # end
 
-    def self.start_welcome
-        system 'clear'
-        puts "Welcome"
+    # def self.start_welcome
+    #     system 'clear'
+    #     puts "Welcome"
 
-    end
+    # end
 end
 #CommandLineInterface.start 
