@@ -1,4 +1,4 @@
-#Museums in the state of California
+#Museums in the city of San Francisco California
 
 A CLI application that shows you the user to see information of all the museums in the city of San Francisco. To accomplish this task the app will attempt to get all this information from Museumsusa.org. Which conveniently presents information of museums by state or city great!.
 
