@@ -26,17 +26,16 @@ class Scraper
         url="http://www.museumsusa.org#{city_url}"
         html=open(url)
         doc=Nokogiri::HTML(html)
-        museums_info << doc.css('.itemGroup').css('div.basic:nth-child(2)')
+        museums_url << doc.css('.itemGroup').css('div.basic:nth-child(2)')
        end
-      museum_name(museums_info)
+      museum_name(museums_url)
     end    
     
-    def museum_name(museums_info)
+    def museum_name(museums_url)
         museum_title=[]
-        museums_info.each do |museum|
+        museums_url.each do |museum|
         name= museum.css('div.basic:nth-child(2) > div:nth-child(1)').css('a:nth-child(1)').text
         type= museum.css('.type').text
-        Museum.new(name,type)
         museum = {
           :name => name,
           :type => type
@@ -44,12 +43,12 @@ class Scraper
         museum_title << museum
       end
       museum_title
-      add_attributes(museums_info)
+      add_attributes(museums_url)
     end
     
-    def add_attributes(museums_info)
+    def add_attributes(museums_url)
       museums=[]
-      museums_info.each do |museum|
+      museums_url.each do |museum|
         location = museum.css('.location').text.split(', ')
         url= museum.css('a').attr('href').value
         description = museum.css('.abstract').text

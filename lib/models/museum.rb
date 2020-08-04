@@ -8,6 +8,7 @@ class Museum
      @@all=[]
      
    def initialize(name,type)
+      @scrape=Scraper.new
       @name=name
       @type=type
       @@all << self if @@all.none?(self)
@@ -18,17 +19,17 @@ class Museum
    end 
 
    #first scrape museums names and description only.
-   def museums
-      scrape=Scraper.new
-      scrape.museum_name #initializes articles
+   def make_museums
+      @scrape.scrape_city_urls
+      scrape_city_pages(city_urls)
+      museum_name(museums_url)
       binding.pry
    end  
    
-    def list_museums #top 10 headlines to console
+    def list_museums(museum_title)
         self.all.each.with_index(1) do |a, i|
-           unless i > 63
-            puts " #{i}. #{a.name}"
-            puts "#{i}. #{a.type}"
+           unless i > self.all.size
+            puts " #{i}. #{a.name} \n #{i}. #{a.type}"
            else
             put "I don't understand that" 
            end
@@ -53,5 +54,3 @@ class Museum
 
 
 end 
-m=Museum.new
-m.
