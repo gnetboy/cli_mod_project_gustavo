@@ -1,12 +1,13 @@
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
-
+puts 'scraper loaded'
 class Scraper
+     attr_reader :museum_title,:museums_info,:city_urls
 
   MAIN_PATH="http://www.museumsusa.org/museums/?k=1271404%2cCity%3aSan+Francisco%3bState%3aCA%3bDirectoryID%3a200454"
    
-  def scrape_city_urls
+  def self.scrape_city_urls
        #This method returns the url of museums in our targe city in this case San Francisco
       doc=Nokogiri::HTML(open(MAIN_PATH))
       city_urls=[]
@@ -15,13 +16,15 @@ class Scraper
       cities.each do |city|
         url =city.attribute('href').value
         city_urls << url
+
       end
+      city_urls
       scrape_city_pages(city_urls)
-    end
+  end
     
-    def scrape_city_pages(city_urls)
+    def self.scrape_city_pages(city_urls)
       #this method returns an array of hashes with info of all the museums
-      museums_info=[]
+      museums_url=[]
       city_urls.each do |city_url|
         url="http://www.museumsusa.org#{city_url}"
         html=open(url)
@@ -31,7 +34,7 @@ class Scraper
       museum_name(museums_url)
     end    
     
-    def museum_name(museums_url)
+    def self.museum_name(museums_url)
         museum_title=[]
         museums_url.each do |museum|
         name= museum.css('div.basic:nth-child(2) > div:nth-child(1)').css('a:nth-child(1)').text
@@ -43,25 +46,25 @@ class Scraper
         museum_title << museum
       end
       museum_title
-      add_attributes(museums_url)
+      #add_attributes(museums_url)
     end
     
-    def add_attributes(museums_url)
+    def self.add_attributes(museums_url)
       museums=[]
       museums_url.each do |museum|
         location = museum.css('.location').text.split(', ')
         url= museum.css('a').attr('href').value
         description = museum.css('.abstract').text
         
-         attributes = {
-           :description => description,
-           :city => location[0],
-           :state => location[1],
-           :link => url
-         }
-           museums << attributes
-       end
-       museums
+        attributes = {
+          :description => description,
+          :city => location[0],
+          :state => location[1],
+          :link => url
+        }
+        museumsinfo << attributes
+      end
+      museums_info
     end
    
 end
