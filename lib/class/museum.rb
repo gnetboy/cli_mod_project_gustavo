@@ -1,3 +1,4 @@
+require 'pry'
 puts "museum loaded"
 class Museum
     
@@ -5,30 +6,20 @@ class Museum
     
      @@all=[]
      
-   def initialize(name,type)
-      @name=museum_list[:name]
-      @type=museum_list[:type]
-      @@all << self 
+   def initialize(name,url)
+      @name=name
+      @url=url
+      @@all << self
    end
        
-   def self.create_from_collection(museum_list)
-      museum_list.each do |museum_hash|
-            Museum.new(museum_hash)
-      end
+   def self.museum_list
+      self.all.each_with_index {|a,i| puts "#{i+1} #{a.name}"}
    end
-
    
    def self.all
       @@all.sort_by(&:name)
-
    end 
 
 
-   #   def initialize(museum_hash)
-   #      @name = museum_hash[:name]
-   #      @city = museum_hash[:city]
-   #      @state = museum_hash[:state]
-   #      @description = museum_hash[:type]
-   #      @@all << self
-   #   end
+
 end 
