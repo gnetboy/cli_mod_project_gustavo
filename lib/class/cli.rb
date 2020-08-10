@@ -1,5 +1,4 @@
 class CLI
-
     
     def run
         Museum.create_museums
@@ -7,21 +6,8 @@ class CLI
         main_menu
     end
 
-    
-    def welcome
-      puts <<~WELCOME
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        
-        Welcome to my app Museums being thousands of
-        museums in the country we will only search for 
-        museums in the city of San Francisco, California.
-        
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        WELCOME
-    end
 
-    
-      def main_menu
+    def main_menu
           puts "\nThese are the most popular Museums in San Francisco."
           Museum.museum_list
           puts "\nPlease make a selection for more info:"
@@ -61,6 +47,19 @@ class CLI
           puts  "\nType: #{@type.wrap_to_limit(60)}"
           puts  "\nAddress: #{@address.join(' ').wrap_to_limit(60)}"
           puts  "\nHours: #{@hours.join(' ').wrap_to_limit(75)}"
+        end
+
+
+        def welcome
+          puts <<~WELCOME
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            
+            Welcome to my app Museums being thousands of
+            museums in the country we will only search for 
+            museums in the city of San Francisco, California.
+            
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            WELCOME
         end
 
 end

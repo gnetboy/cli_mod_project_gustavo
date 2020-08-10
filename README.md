@@ -8,6 +8,6 @@ to run the app you will need a local installation of Ruby.
 Fork the  repo and clone to your local machine.
 to star the app at a terminal prompt:
 
-$ bin/run
+$ bin/start
 
 Once you start the  app, a list of all the museums in San Francisco CA, will be presented to you.
