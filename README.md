@@ -10,4 +10,4 @@ to star the app at a terminal prompt:
 
 $ bin/run
 
-Once you start the  app, a list of all the museums in San Francisco CA, will be presented to you.
+Once you start the  app, a list of the 20 most popular museums in San Francisco CA, will be presented to you.
