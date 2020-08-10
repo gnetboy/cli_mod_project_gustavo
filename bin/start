@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 require 'require_all'
-require_all 'lib'
+require_all 'config'
 
 CLI.new.run
 
-
-puts "\nSuccess"
